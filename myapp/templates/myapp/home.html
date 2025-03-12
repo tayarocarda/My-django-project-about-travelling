@@ -1,0 +1,10 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1>Добро пожаловать на сайт «Путешествия по России!»</h1>
+<p>Здесь вы найдёте информацию о самых интересных местах, <br> маршрутах и советах для путешествий.</p>
+<img src="{% static 'images/russiatravel.png' %}" alt="Путешествия по России" width="900">
+
+{% endblock %}

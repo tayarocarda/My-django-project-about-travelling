@@ -1,0 +1,34 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<style>
+    .back-to-top {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-to-top:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h1>Задача №1011</h1>
+<p>Определить значение функции Z = 1/(XY) при произвольных X и Y .</p>
+<form method="post">
+    {% csrf_token %}
+    <label for="x">X:</label>
+    <input type="text" name="x" id="x">
+    <label for="y">Y:</label>
+    <input type="text" name="y" id="y">
+    <button type="submit" class="back-to-top">Посчитать</button>
+</form>
+{% if z %}
+<p>Z: {{ z }}</p>
+{% endif %}
+{% endblock %}

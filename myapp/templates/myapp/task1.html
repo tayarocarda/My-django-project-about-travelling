@@ -1,0 +1,34 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<style>
+    .back-to-top {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-to-top:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h1>Задача №9</h1>
+<p>Мария Ивановна хочет подсчитать суммарный балл своих учеников за экзамен и определить самого лучшего ученика в классе.</p>
+<form method="post">
+    {% csrf_token %}
+    <label for="names">Имена учеников:</label>
+    <input type="text" name="names" id="names">
+    <label for="scores">Оценки:</label>
+    <input type="text" name="scores" id="scores">
+    <button type="submit" class="back-to-top">Определить лучшего ученика</button>
+</form>
+{% if best_student %}
+<p>Лучший ученик: {{ best_student }}</p>
+{% endif %}
+{% endblock %}

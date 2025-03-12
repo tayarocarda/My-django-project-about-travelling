@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествия по России</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'images/css/styles.css' %}">
+</head>
+
+<body>
+  <header>
+    <nav>
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/logogo.png' %}" alt="Логотип" class="logo">
+        </a>
+        <a href="{% url 'regions' %}#central">Регионы</a>
+        <a href="{% url 'attractions' %}">Достопримечательности</a>
+        <a href="{% url 'routes' %}">Маршруты</a>
+        <a href="{% url 'tips' %}">Советы</a>
+        <a href="https://путешествуем.рф/" target="_blank">Официальный туристический сайт</a>
+        <a href="{% url 'task1' %}">Задача 1</a>
+        <a href="{% url 'task2' %}">Задача 2</a>
+        <a href="{% url 'design_school' %}">Школа дизайна</a>
+    </nav>
+  </header>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

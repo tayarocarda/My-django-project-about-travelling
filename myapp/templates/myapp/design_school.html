@@ -1,0 +1,41 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+{% load static %}
+
+<h1>Школа дизайна</h1>
+
+<section>
+    <h2>Я и моя образовательная программа</h2>
+    <div>
+        <h3>{{ student.full_name }}</h3>
+        <img src="{% static 'images/student.jpg' %}" alt="Фото студента" width="150">
+        <p>Email: {{ student.email }}</p>
+        <p>Телефон: {{ student.phone }}</p>
+    </div>
+    <div>
+        <h3>Образовательная программа</h3>
+        <p><strong>Название:</strong> {{ program.name }}</p>
+        <p><strong>Описание:</strong> {{ program.description }}</p>
+        <h4>Руководитель программы</h4>
+        <img src="{% static 'images/director.jpg' %}" alt="Фото руководителя" width="150">
+        <p>{{ program.director.full_name }}</p>
+        <p>Email: {{ program.director.email }}</p>
+        <h4>Менеджер программы</h4>
+        <img src="{% static 'images/manager.jpg' %}" alt="Фото менеджера" width="150">
+        <p>{{ program.manager.full_name }}</p>
+        <p>Email: {{ program.manager.email }}</p>
+    </div>
+</section>
+
+<section>
+    <h2>Мои сокурсники</h2>
+    {% for classmate in classmates %}
+    <div>
+        <h3>{{ classmate.full_name }}</h3>
+        <img src="{% static classmate.photo %}" alt="Фото {{ classmate.full_name }}" width="150">
+        <p>Email: {{ classmate.email }}</p>
+        <p>Телефон: {{ classmate.phone }}</p>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
