@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Все записи</h2>
+<p>Всего записей: {{ total }}</p>
+<p>Средняя оценка: {{ avg_grade|default:"0" }}</p>
+
+<table border="1">
+    <tr>
+        <th>Студент</th>
+        <th>Программа</th>
+        <th>Оценка</th>
+    </tr>
+    {% for p in programs %}
+    <tr>
+        <td>{{ p.student_name }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.grade }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'add_program' %}">Добавить новую запись</a>
+{% endblock %}

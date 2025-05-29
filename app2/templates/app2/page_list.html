@@ -1,0 +1,82 @@
+{% extends "app2/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-3">Я и мое обучение в Вышке</h1>
+        <p class="lead text-muted">Исследуйте информацию о моей образовательной программе</p>
+    </div>
+
+    <!-- Поиск и фильтрация -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-body p-4">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label for="search" class="form-label">Поиск по карточкам</label>
+                    <div class="input-group">
+                        
+                        <input type="text" id="search" name="search" class="form-control form-control-lg"
+                               placeholder="Найти карточку..." value="{{ request.GET.search }}">
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="sort_by" class="form-label">Сортировка</label>
+                    <select id="sort_by" name="sort_by" class="form-select">
+                        <option value="">По умолчанию</option>
+                        <option value="title" {% if request.GET.sort_by == 'title' %}selected{% endif %}>
+                            По названию (А-Я)
+                        </option>
+                        <option value="-title" {% if request.GET.sort_by == '-title' %}selected{% endif %}>
+                            По названию (Я-А)
+                        </option>
+                        <option value="order" {% if request.GET.sort_by == 'order' %}selected{% endif %}>
+                            По порядку
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100 h-100">
+                
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Карточки -->
+    {% if cards %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        {% for card in cards %}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-hover">
+                <div class="card-body text-center p-4">
+                    <div class="icon-wrapper bg-light-primary rounded-circle mx-auto mb-4" style="width: 80px; height: 80px;">
+                        <i class="material-icons text-primary" style="font-size: 2.5rem;">{{ card.icon }}</i>
+                    </div>
+                    <h3 class="h4 card-title">{{ card.title }}</h3>
+                    <p class="card-text text-muted">{{ card.description }}</p>
+                    <a href="{% url 'page_detail' card.page.slug %}" class="btn btn-outline-primary stretched-link">
+                        Подробнее <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <!-- Сообщение, если ничего не найдено -->
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="material-icons text-muted" style="font-size: 4rem;">search_off</i>
+        </div>
+        <h3 class="h4">Карточки не найдены</h3>
+        <p class="text-muted">Попробуйте изменить параметры поиска</p>
+        <a href="{% url 'page_list' %}" class="btn btn-primary mt-3">
+            <i class="material-icons me-1">refresh</i> Сбросить фильтры
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

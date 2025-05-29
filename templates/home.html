@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 style="color: #1a73e8; font-size: 2.5rem; margin-bottom: 1.5rem;">Добро пожаловать!</h1>
+    <p class="lead" style="color: #5f6368;">
+        Выберите нужный раздел для просмотра информации о моем обучении в Высшей школе экономики.
+    </p>
+</div>
+
+<div class="row justify-content-center" style="gap: 30px;">
+    <!-- Карточка App1 -->
+    <div class="col-md-5">
+        <div class="card h-100" style="
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        ">
+            <div class="card-body text-center" style="padding: 2.5rem 2rem;">
+                <div style="margin: 1rem auto;">
+                    <i class="material-icons" style="font-size: 3.5rem; color: #1a73e8;">school</i>
+                </div>
+                <div style="margin: 1.5rem auto;">
+                    <h3 style="color: #1a73e8; margin-bottom: 1rem;">Я и моя образовательная программа</h3>
+                    <p style="color: #5f6368;">
+                        Информация об оценках студентов образовательных программ.
+                    </p>
+                </div>
+                <div style="margin: 2rem auto 1rem;">
+                    <a href="{% url 'program_list' %}" class="content-link">
+                        Подробнее о программе
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Карточка App2 -->
+    <div class="col-md-5">
+        <div class="card h-100" style="
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        ">
+            <div class="card-body text-center" style="padding: 2.5rem 2rem;">
+                <div style="margin: 1rem auto;">
+                    <i class="material-icons" style="font-size: 3.5rem; color: #ea4335;">person_outline</i>
+                </div>
+                <div style="margin: 1.5rem auto;">
+                    <h3 style="color: #ea4335; margin-bottom: 1rem;">Я и мое обучение в Вышке</h3>
+                    <p style="color: #5f6368;">
+                        Информация обо мне, моих сокурсниках и руководстве программы.
+                    </p>
+                </div>
+                <div style="margin: 2rem auto 1rem;">
+                    <a href="{% url 'page_list' %}" class="content-link" style="background-color: #ea4335;">
+                        Узнать больше
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% block app_nav %}
+<nav class="nav">
+    <div>
+        <a href="{% url 'program_list' %}" {% if request.resolver_match.url_name=='program_list' %}class="active" {%
+            endif %}>
+            Список программ
+        </a>
+        <a href="{% url 'add_program' %}" {% if request.resolver_match.url_name=='add_program' %}class="active" {% endif
+            %}>
+            Добавить программу
+        </a>
+    </div>
+    <div>
+        <a href="/admin/" target="_blank">Админ-панель</a>
+    </div>
+</nav>
+{% endblock %}

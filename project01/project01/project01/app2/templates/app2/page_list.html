@@ -1,0 +1,16 @@
+<input type="text" name="search" value="{{ search_query|default:'' }}" placeholder="Поиск по заголовку или содержанию"
+    class="form-control">
+<select name="sort" class="form-control">
+    {% with current_sort_by=sort_by|default:'order' %}
+    <option value="order" {% if current_sort_by=='order' %}selected{% endif %}>По порядку</option>
+    <option value="title" {% if current_sort_by=='title' %}selected{% endif %}>По заголовку (А-Я)
+    </option>
+    <option value="-title" {% if current_sort_by=='-title' %}selected{% endif %}>По заголовку (Я-А)
+    </option>
+    <option value="created" {% if current_sort_by=='created' %}selected{% endif %}>Сначала старые
+    </option>
+    <option value="-created" {% if current_sort_by=='-created' %}selected{% endif %}>Сначала новые
+    </option>
+    {% endwith %}
+</select>
+</div>

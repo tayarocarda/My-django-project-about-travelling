@@ -1,0 +1,149 @@
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1,
+h2 {
+    color: #007bff;
+    margin-top: 25px;
+    margin-left: 45px;
+}
+
+h3, h4, label {
+    margin-top: 5px;
+    margin-left: 45px;
+    color: #000000;
+}
+
+button {
+    margin-left: 15px;
+}
+
+p, ol, ul, li {
+    margin-top: 5px;
+    margin-left: 45px;
+    color: #000000;
+}
+
+
+img:not(.logo) {
+    margin-top: 5px;
+    margin-left: 45px;
+}
+
+img:not(.logo), button {
+    margin-bottom: 25px;
+}
+
+p {
+    width: 65%;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+header {
+    background-color: #007bff;
+    padding: 8px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+nav a:hover {
+    color: #cce6ff;
+}
+
+nav img {
+    height: 40px;
+}
+
+
+.button,
+.back-to-top {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.button:hover,
+.back-to-top:hover {
+    background-color: #0056b3;
+}
+
+
+section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    margin-bottom: 20px;
+}
+
+section img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+
+ol,
+ul {
+    padding-left: 20px;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+li {
+    margin: 10px 0;
+}

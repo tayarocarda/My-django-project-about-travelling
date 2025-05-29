@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<style>
+    .page-content {
+        font-size: 1.1em;
+        line-height: 1.8;
+    }
+
+    .page-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .page-meta {
+        color: #6c757d;
+        font-size: 0.9em;
+    }
+
+    .related-pages .card {
+        transition: transform 0.2s;
+    }
+
+    .related-pages .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        content: "›";
+    }
+</style>
+{% endblock %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block meta %}
+{% if page.meta_description %}
+<meta name="description" content="{{ page.meta_description }}">
+{% endif %}
+{% if page.meta_keywords %}
+<meta name="keywords" content="{{ page.meta_keywords }}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'page_list' %}">Главная</a>
+            </li>
+            {% if page.category %}
+            <li class="breadcrumb-item">
+                <a href="{% url 'page_list' %}?category={{ page.category.slug }}">
+                    {{ page.category.name }}
+                </a>
+            </li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ page.title }}
+            </li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Основной контент -->
+        <div class="col-lg-8">
+            <article class="bg-white p-4 rounded shadow-sm">
+                {% if page.featured_image %}
+                <img src="{{ page.featured_image.url }}" alt="{{ page.title }}" class="img-fluid rounded mb-4"
+                    style="width: 100%; max-height: 400px; object-fit: cover;">
+                {% endif %}
+
+                <h1 class="display-4 mb-3">{{ page.title }}</h1>
+
+                <div class="page-meta mb-4">
+                    <div class="d-flex align-items-center gap-3">
+                        {% if page.category %}
+                        <span>
+                            <i class="bi bi-folder"></i>
+                            <a href="{% url 'page_list' %}?category={{ page.category.slug }}"
+                                class="text-decoration-none">
+                                {{ page.category.name }}
+                            </a>
+                        </span>
+                        {% endif %}
+                        <span>
+                            <i class="bi bi-calendar"></i>
+                            {{ page.created|date:"d.m.Y" }}
+                        </span>
+                        <span>
+                            <i class="bi bi-clock"></i>
+                            {{ page.modified|date:"d.m.Y H:i" }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="page-content">
+                    {{ page.content|safe }}
+                </div>
+            </article>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <!-- Категории -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Категории</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for category in categories %}
+                    <a href="{% url 'page_list' %}?category={{ category.slug }}"
+                        class="list-group-item list-group-item-action {% if page.category.id == category.id %}active{% endif %}">
+                        {{ category.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Похожие страницы -->
+            {% if related_pages %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Похожие страницы</h5>
+                </div>
+                <div class="card-body related-pages">
+                    {% for related in related_pages %}
+                    <div class="card mb-3">
+                        {% if related.featured_image %}
+                        <img src="{{ related.featured_image.url }}" class="card-img-top" alt="{{ related.title }}"
+                            style="height: 150px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h6 class="card-title">{{ related.title }}</h6>
+                            <p class="card-text small">
+                                {{ related.excerpt|default:related.content|truncatewords:20 }}
+                            </p>
+                            <a href="{% url 'page_detail' related.slug %}" class="btn btn-sm btn-outline-primary">
+                                Читать далее
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

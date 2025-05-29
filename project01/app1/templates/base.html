@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для навигации */
+        .nav {
+            background-color: #1a73e8;
+            padding: 10px 20px;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 0 5px;
+            transition: background-color 0.2s;
+        }
+
+        .nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Главная навигация */
+        .main-nav {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .main-nav a {
+            color: #1a73e8;
+            text-decoration: none;
+            padding: 5px 15px;
+            margin: 0 10px;
+            border-radius: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .main-nav a:hover {
+            background-color: #e8f0fe;
+        }
+
+        .main-nav a.active {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .content-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .content-link:hover {
+            background-color: #1557b0;
+        }
+
+        h2 {
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для форм */
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Главная навигация между приложениями -->
+    <div class="main-nav">
+        <a href="{% url 'program_list' %}" {% if '/app1' in request.path %}class="active" {% endif %}>
+            Образовательные программы
+        </a>
+        <a href="{% url 'page_list' %}" {% if '/app2' in request.path %}class="active" {% endif %}>
+            Страницы сайта
+        </a>
+    </div>
+
+    <!-- Навигация внутри приложения -->
+    {% block app_nav %}{% endblock %}
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        // Подсветка активной страницы в навигации
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav a');
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% include "app1/nav.html" %}
+
+{% block title %}Образовательные программы{% endblock %}
+
+{% block content %}
+<h2>Все записи</h2>
+
+<form method="get" class="filter-form" style="margin-bottom: 20px;">
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 15px;">
+        {{ filter_form.search }}
+        {{ filter_form.min_grade }}
+        {{ filter_form.max_grade }}
+        {{ filter_form.sort_by }}
+    </div>
+    <button type="submit" style="
+        padding: 10px 20px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    ">Применить фильтры</button>
+    <a href="{% url 'program_list' %}" class="content-link" style="
+        background-color: #6c757d;
+        margin-left: 10px;
+    ">Сбросить</a>
+</form>
+
+<div style="background-color: #e9ecef; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+    <p style="margin: 0;">Всего записей: <strong>{{ total }}</strong></p>
+    <p style="margin: 5px 0 0 0;">Средняя оценка: <strong>{{ avg_grade|default:"0"|floatformat:1 }}</strong></p>
+</div>
+
+<style>
+    table {
+        border-spacing: 0;
+        border-collapse: separate;
+        margin-bottom: 30px !important;
+    }
+
+    th,
+    td {
+        padding: 15px 30px !important;
+        border: 1px solid #dee2e6;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        text-align: left;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    td {
+        background-color: white;
+    }
+
+    tr:hover td {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Студент</th>
+            <th>Программа</th>
+            <th>Оценка</th>
+            <th>Дата добавления</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in programs %}
+        <tr>
+            <td>{{ p.student_name }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.grade }}</td>
+            <td>{{ p.date_added|date:"d.m.Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" style="text-align: center; padding: 20px;">
+                Записи не найдены
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'add_program' %}" class="content-link" style="margin-top: 30px; display: inline-block;">Добавить новую
+    запись</a>
+{% endblock %}

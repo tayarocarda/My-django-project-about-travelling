@@ -1,0 +1,170 @@
+{% extends "app2/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'page_list' %}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <article class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h1 class="card-title">{{ page.title }}</h1>
+                    
+                    {% if page.slug == 'about-me' %}
+                        <div class="d-flex align-items-start gap-4 mb-4">
+                            {% if page.photo %}
+                            <img src="{{ page.photo.url }}" alt="{{ page.full_name }}" 
+                                 class="rounded-circle" width="150" height="150">
+                            {% endif %}
+                            <div>
+                                <h2>{{ page.full_name }}</h2>
+                                {% if page.email %}
+                                <p><i class="bi bi-envelope"></i> {{ page.email }}</p>
+                                {% endif %}
+                                {% if page.phone %}
+                                <p><i class="bi bi-telephone"></i> {{ page.phone }}</p>
+                                {% endif %}
+                                {% if page.resume %}
+                                <a href="{{ page.resume.url }}" class="btn btn-primary" download>
+                                    <i class="bi bi-download"></i> Скачать резюме
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if page.slug == 'my-program' %}
+                        <div class="mb-4">
+                            <h2>{{ page.program_name }}</h2>
+                            {% if page.program_link %}
+                            <a href="{{ page.program_link }}" target="_blank" class="btn btn-outline-primary mb-3">
+                                Официальная страница программы
+                            </a>
+                            {% endif %}
+                            
+                            <h3 class="mt-4">Чему я научусь:</h3>
+                            <div class="ps-3">{{ page.skills|linebreaks }}</div>
+                            
+                            <h3 class="mt-4">Преимущества программы:</h3>
+                            <div class="ps-3">{{ page.advantages|linebreaks }}</div>
+                            
+                            <h3 class="mt-4">Перспективы после обучения:</h3>
+                            <div class="ps-3">{{ page.prospects|linebreaks }}</div>
+                        </div>
+                    {% endif %}
+
+                    <div class="page-content">
+                        {{ page.content|safe }}
+                    </div>
+                </div>
+            </article>
+
+            {% if page.cards.exists %}
+            <h2 class="mt-5 mb-3">Дополнительные материалы</h2>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for card in page.cards.all %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="material-icons">{{ card.icon }}</i>
+                            <h3 class="card-title">{{ card.title }}</h3>
+                            <p class="card-text">{{ card.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            {% if page.slug == 'program-management' %}
+                {% if page.supervisor %}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2>Академический руководитель</h2>
+                        <div class="d-flex align-items-start gap-3">
+                            {% if page.supervisor.photo %}
+                            <img src="{{ page.supervisor.photo.url }}" alt="{{ page.supervisor.name }}" 
+                                 class="rounded-circle" width="80" height="80">
+                            {% endif %}
+                            <div>
+                                <h3>{{ page.supervisor.name }}</h3>
+                                <p><i class="bi bi-envelope"></i> {{ page.supervisor.email }}</p>
+                                {% if page.supervisor.bio %}
+                                <p class="text-muted">{{ page.supervisor.bio }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.managers.exists %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2>Менеджеры программы</h2>
+                        <div class="list-group">
+                            {% for manager in page.managers.all %}
+                            <div class="list-group-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    {% if manager.photo %}
+                                    <img src="{{ manager.photo.url }}" alt="{{ manager.name }}" 
+                                         class="rounded-circle" width="50" height="50">
+                                    {% endif %}
+                                    <div>
+                                        <h5 class="mb-1">{{ manager.name }}</h5>
+                                        <small><i class="bi bi-envelope"></i> {{ manager.email }}</small>
+                                        {% if manager.responsibilities %}
+                                        <p class="text-muted mt-1 mb-0">{{ manager.responsibilities }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+
+            {% if page.slug == 'my-classmates' and page.classmates.exists %}
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2>Мои сокурсники</h2>
+                    <div class="list-group">
+                        {% for classmate in page.classmates.all %}
+                        <div class="list-group-item">
+                            <div class="d-flex align-items-center gap-3">
+                                {% if classmate.photo %}
+                                <img src="{{ classmate.photo.url }}" alt="{{ classmate.name }}" 
+                                     class="rounded-circle" width="50" height="50">
+                                {% endif %}
+                                <div>
+                                    <h5 class="mb-1">{{ classmate.name }}</h5>
+                                    {% if classmate.email %}
+                                    <small><i class="bi bi-envelope"></i> {{ classmate.email }}</small><br>
+                                    {% endif %}
+                                    {% if classmate.phone %}
+                                    <small><i class="bi bi-telephone"></i> {{ classmate.phone }}</small>
+                                    {% endif %}
+                                    {% if classmate.interests %}
+                                    <p class="text-muted mt-1 mb-0">{{ classmate.interests }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
